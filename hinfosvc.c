@@ -229,9 +229,7 @@ int hostname_response (char *response, int con_socket)
 
     /* Set HTTP response */
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(hostname), CONTENT_TYPE, hostname);               
-    send(con_socket, response, strlen(response), 0);      
-
-    printf("INFO: Closing connection.\n\n");
+    send(con_socket, response, strlen(response), 0);    
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -248,9 +246,7 @@ int cpu_name_response (char *response, int con_socket)
 
     /* Set HTTP response */
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(cpu_name), CONTENT_TYPE, cpu_name);
-    send(con_socket, response, strlen(response), 0);
-
-    printf("INFO: Closing connection.\n\n");
+    send(con_socket, response, strlen(response), 0);    
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -273,9 +269,7 @@ int load_response (char *response, int con_socket)
 
     /* Set HTTP response */
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(cpu_str), CONTENT_TYPE, cpu_str);    
-    send(con_socket, response, strlen(response), 0);
-
-    printf("INFO: Closing connection.\n\n");
+    send(con_socket, response, strlen(response), 0);    
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -391,11 +385,7 @@ int main (int argc, char *argv[])
                     int res = recv(con_socket, buffer, BUFFER_SIZE, 0);		
                     
                     if (res > 0)
-                    {
-                        /* Print request */
-                        buffer[res] = '\0';
-                        printf("%s",buffer);
-
+                    {                        
                         /* Set end of string for following comparing */
                         buffer[HOST_CPU_END_IDX] = '\0';
                         
@@ -448,8 +438,7 @@ int main (int argc, char *argv[])
                         }
                     }
                     else if (res == 0)
-                    {
-                        printf("INFO: Closing connection.\n\n");
+                    {                        
                         close(con_socket);					
                         break;      
                     }
