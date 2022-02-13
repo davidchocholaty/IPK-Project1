@@ -7,14 +7,17 @@ Implementace serveru komunikujícího prostřednictvím protokolu HTTP poskytuj�
 - Aktuální zátěž
 
 ## Návod použití
-* Spuštění serveru
-	* Server je spuštěn s argumentem, který určuje port, na kterém server bude naslouchat. Následující příklad obsahuje spuštění serveru s portem 12345.
+
+###Spuštění serveru
+Server je spuštěn s argumentem, který určuje port, na kterém server bude naslouchat. Následující příklad obsahuje spuštění serveru s portem 12345.
 ```console
 ./hinfosvc 12345
 ```
-* Získání systémových informací - systémové informace lze získat prostřednictvím webového rozhraní, pomocí programu *curl* a nebo s využitím programu *wget*. Následující příklady obsahují výčet všech variant použití.
+
+### Získání systémových informací
+Systémové informace lze získat prostřednictvím webového rozhraní, pomocí programu *curl* a nebo s využitím programu *wget*. Následující příklady obsahují výčet všech variant použití.
 	
-	1. Získání doménového jména
+#### Získání doménového jména
 	
 	Webové rozhraní
 	```console
@@ -28,7 +31,7 @@ Implementace serveru komunikujícího prostřednictvím protokolu HTTP poskytuj�
 	```console
 	wget http://localhost:12345/hostname
 	```
-	1. Získání informací o CPU
+#### Získání informací o CPU
 	
 	Webové rozhraní
 	```console
@@ -43,7 +46,7 @@ Implementace serveru komunikujícího prostřednictvím protokolu HTTP poskytuj�
 	wget http://localhost:12345/cpu-name
 	```
 	
-	1. Aktuální zátěž
+#### Aktuální zátěž
 	
 	Webové rozhraní
 	```console
@@ -57,3 +60,4 @@ Implementace serveru komunikujícího prostřednictvím protokolu HTTP poskytuj�
 	```console
 	wget http://localhost:12345/load
 	```
+	
