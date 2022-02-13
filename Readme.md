@@ -19,57 +19,57 @@ Systémové informace lze získat prostřednictvím webového rozhraní, příka
 	
 #### Získání doménového jména
 	
-	Webové rozhraní
-	```console
-	http://localhost:12345/hostname
-	```
-	Příkaz GET
-	```console
-	GET http://localhost:12345/hostname
-	```
-	Program *curl*
-	```console
-	curl http://localhost:12345/hostname
-	```
-	Program *wget*
-	```console
-	wget http://localhost:12345/hostname
-	```
+Webové rozhraní
+```console
+http://localhost:12345/hostname
+```
+Příkaz GET
+```console
+GET http://localhost:12345/hostname
+```
+Program *curl*
+```console
+curl http://localhost:12345/hostname
+```
+Program *wget*
+```console
+wget http://localhost:12345/hostname
+```
 #### Získání informací o CPU
 	
-	Webové rozhraní
-	```console
-	http://localhost:12345/cpu-name
-	```
-	Příkaz GET
-	```console
-	GET http://localhost:12345/cpu-name
-	```
-	Program *curl*
-	```console
-	curl http://localhost:12345/cpu-name
-	```
-	Program *wget*
-	```console
-	wget http://localhost:12345/cpu-name
-	```
+Webové rozhraní
+```console
+http://localhost:12345/cpu-name
+```
+Příkaz GET
+```console
+GET http://localhost:12345/cpu-name
+```
+Program *curl*
+```console
+curl http://localhost:12345/cpu-name
+```
+Program *wget*
+```console
+wget http://localhost:12345/cpu-name
+```
 	
 #### Aktuální zátěž
 	
-	Webové rozhraní
-	```console
-	http://localhost:12345/load
-	```
-	Příkaz GET
-	```console
-	GET http://localhost:12345/load
-	```
-	Program *curl*
-	```console
-	curl http://localhost:12345/load
-	```
-	Program *wget*
-	```console
-	wget http://localhost:12345/load
-	```
-	
+Webové rozhraní
+```console
+http://localhost:12345/load
+```
+Příkaz GET
+```console
+GET http://localhost:12345/load
+```
+Program *curl*
+```console
+curl http://localhost:12345/load
+```
+Program *wget*
+```console
+wget http://localhost:12345/load
+```
+
