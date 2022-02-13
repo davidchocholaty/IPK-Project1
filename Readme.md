@@ -72,3 +72,4 @@ Systémové informace lze získat prostřednictvím webového rozhraní, příka
 	```console
 	wget http://localhost:12345/load
 	```
+	
