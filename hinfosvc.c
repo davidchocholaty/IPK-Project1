@@ -31,6 +31,7 @@
 
 #define CPU_NAME_CMND "grep \"model name\" /proc/cpuinfo | head -n 1 | awk '{ print substr($0, index($0,$4)) }'"
 #define CPU_USAGE_CMND "grep \"cpu\" /proc/stat | head -n 1 | awk '{ print substr($0, index($0,$2)) }'"
+
 #define VALID_RES_STATUS "HTTP/1.1 200 OK\r\n"
 #define BAD_RES_STATUS "400 Bad Request"
 #define CONTENT_LENGTH "Content-Length: "
@@ -218,6 +219,14 @@ int cpu_usg_2_str(char *cpu_str, unsigned int cpu_usage)
     return EXIT_SUCCESS;
 }
 
+/*
+ * Function for create response
+ * with hostname query
+ * 
+ * @param response   Buffer for response message
+ * @param con_socket Connection socket
+ * @return           Status of function processing
+ */
 int hostname_response (char *response, int con_socket)
 {
     char hostname[HOST_NAME_MAX + 1];        
@@ -235,6 +244,14 @@ int hostname_response (char *response, int con_socket)
     return EXIT_SUCCESS;
 }
 
+/*
+ * Function for create response
+ * with cpu-name query
+ * 
+ * @param response   Buffer for response message
+ * @param con_socket Connection socket
+ * @return           Status of function processing
+ */
 int cpu_name_response (char *response, int con_socket)
 {
     char cpu_name[CPU_NAME_SIZE];        
@@ -252,6 +269,14 @@ int cpu_name_response (char *response, int con_socket)
     return EXIT_SUCCESS;
 }
 
+/*
+ * Function for create response
+ * with load query
+ * 
+ * @param response   Buffer for response message
+ * @param con_socket Connection socket
+ * @return           Status of function processing
+ */
 int load_response (char *response, int con_socket)
 {
     unsigned int cpu_usage;
@@ -371,9 +396,9 @@ int main (int argc, char *argv[])
             for (;;)
             {
                 fd_set fds;
-				FD_ZERO(&fds);
-				FD_SET(con_socket, &fds);
-				FD_SET(STDIN_FILENO, &fds);	
+                FD_ZERO(&fds);
+                FD_SET(con_socket, &fds);
+                FD_SET(STDIN_FILENO, &fds);	
 				
                 if (select(con_socket + 1, &fds, NULL, NULL, NULL) <= 0)
                 {
