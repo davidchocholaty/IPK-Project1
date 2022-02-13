@@ -36,8 +36,6 @@
 #define CONTENT_LENGTH "Content-Length: "
 #define CONTENT_TYPE "Content-Type: text/plain\r\n\r\n"
 
-//TODO otestovat na merlinovi
-
 /*
  * Hostname retrieval function
  *
@@ -233,7 +231,7 @@ int hostname_response (char *response, int con_socket)
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(hostname), CONTENT_TYPE, hostname);               
     send(con_socket, response, strlen(response), 0);      
 
-    printf("INFO: Closing connection.\n");
+    printf("INFO: Closing connection.\n\n");
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -252,7 +250,7 @@ int cpu_name_response (char *response, int con_socket)
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(cpu_name), CONTENT_TYPE, cpu_name);
     send(con_socket, response, strlen(response), 0);
 
-    printf("INFO: Closing connection.\n");
+    printf("INFO: Closing connection.\n\n");
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -277,7 +275,7 @@ int load_response (char *response, int con_socket)
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(cpu_str), CONTENT_TYPE, cpu_str);    
     send(con_socket, response, strlen(response), 0);
 
-    printf("INFO: Closing connection.\n");
+    printf("INFO: Closing connection.\n\n");
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -303,7 +301,7 @@ int main (int argc, char *argv[])
 
     if (argc != ARGS_CNT)
     {
-        fprintf(stderr,"BAD COUNT OF ARGS\n usage: %s <port>\n", argv[0]); 
+        fprintf(stderr,"BAD COUNT OF ARGS\nusage: %s <port>\n", argv[0]); 
         exit(EXIT_FAILURE);
     }
     else
@@ -451,7 +449,7 @@ int main (int argc, char *argv[])
                     }
                     else if (res == 0)
                     {
-                        printf("INFO: Closing connection.\n");
+                        printf("INFO: Closing connection.\n\n");
                         close(con_socket);					
                         break;      
                     }
