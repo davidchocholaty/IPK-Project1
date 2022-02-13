@@ -31,10 +31,11 @@
 
 #define CPU_NAME_CMND "grep \"model name\" /proc/cpuinfo | head -n 1 | awk '{ print substr($0, index($0,$4)) }'"
 #define CPU_USAGE_CMND "grep \"cpu\" /proc/stat | head -n 1 | awk '{ print substr($0, index($0,$2)) }'"
-#define VALID_RES "HTTP/1.1 200 OK\r\nContent-Type: text/plain;\r\n\r\n"
-#define BAD_RES "400 Bad Request"
+#define VALID_RES_STATUS "HTTP/1.1 200 OK\r\n"
+#define BAD_RES_STATUS "400 Bad Request"
+#define CONTENT_LENGTH "Content-Length: "
+#define CONTENT_TYPE "Content-Type: text/plain\r\n\r\n"
 
-//TODO format of HTTP response (Content-Length ?, ...)
 //TODO otestovat na merlinovi
 
 /*
@@ -221,20 +222,18 @@ int cpu_usg_2_str(char *cpu_str, unsigned int cpu_usage)
 
 int hostname_response (char *response, int con_socket)
 {
-    char hostname[HOST_NAME_MAX + 1];
-
-    /* Set HTTP msg */
-    strcpy(response, VALID_RES);    
+    char hostname[HOST_NAME_MAX + 1];        
 
     if (gethostname(hostname, HOST_NAME_MAX + 1) != 0)
     {
         return EXIT_FAILURE;
     }
-                                                                        
-    strcat(response, hostname);                            
-    send(con_socket, response, strlen(response), 0);                                                        
-    
-    printf("INFO: Closing conection.\n");
+
+    /* Set HTTP response */
+    sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(hostname), CONTENT_TYPE, hostname);               
+    send(con_socket, response, strlen(response), 0);      
+
+    printf("INFO: Closing connection.\n");
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -242,20 +241,18 @@ int hostname_response (char *response, int con_socket)
 
 int cpu_name_response (char *response, int con_socket)
 {
-    char cpu_name[CPU_NAME_SIZE];
-
-    /* Set HTTP msg */
-    strcpy(response, VALID_RES);    
+    char cpu_name[CPU_NAME_SIZE];        
 
     if (set_cpu_name(cpu_name, CPU_NAME_SIZE) != EXIT_SUCCESS)
     {
         return EXIT_FAILURE;
     }
 
-    strcat(response, cpu_name);
+    /* Set HTTP response */
+    sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(cpu_name), CONTENT_TYPE, cpu_name);
     send(con_socket, response, strlen(response), 0);
 
-    printf("INFO: Closing conection.\n");
+    printf("INFO: Closing connection.\n");
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -264,10 +261,7 @@ int cpu_name_response (char *response, int con_socket)
 int load_response (char *response, int con_socket)
 {
     unsigned int cpu_usage;
-    char cpu_str[4];
-
-    /* Set HTTP msg */
-    strcpy(response, VALID_RES);        
+    char cpu_str[4];    
 
     if (set_cpu_usage(&cpu_usage) != EXIT_SUCCESS)
     {
@@ -279,10 +273,11 @@ int load_response (char *response, int con_socket)
         return EXIT_FAILURE;        
     }
 
-    strcat(response, cpu_str);
+    /* Set HTTP response */
+    sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(cpu_str), CONTENT_TYPE, cpu_str);    
     send(con_socket, response, strlen(response), 0);
 
-    printf("INFO: Closing conection.\n");
+    printf("INFO: Closing connection.\n");
     close(con_socket);
 
     return EXIT_SUCCESS;
@@ -447,15 +442,16 @@ int main (int argc, char *argv[])
                             else
                             {
                                 /* Set HTTP msg */
-                                strcpy(response, BAD_RES);
+                                strcpy(response, BAD_RES_STATUS);
+                                send(con_socket, response, strlen(response), 0);
                                 close(con_socket);						
                                 break;                        
                             }                           
-                        }                    
+                        }
                     }
                     else if (res == 0)
                     {
-                        printf("INFO: closing connection.\n");
+                        printf("INFO: Closing connection.\n");
                         close(con_socket);					
                         break;      
                     }
