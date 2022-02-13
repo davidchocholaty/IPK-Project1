@@ -8,7 +8,8 @@ Implementace serveru komunikujícího prostřednictvím protokolu HTTP poskytuj�
 
 ## Návod použití
 * Spuštění serveru
-Server je spuštěn s argumentem, který určuje port, na kterém server bude naslouchat. Následující příklad obsahuje spuštění serveru s portem 12345.
+	* Server je spuštěn s argumentem, který určuje port, na kterém server bude naslouchat. Následující příklad obsahuje spuštění serveru s portem 12345.
 ```console
-  ./hinfosvc 12345
+./hinfosvc 12345
 ```
+
