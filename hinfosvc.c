@@ -414,8 +414,8 @@ int main (int argc, char *argv[])
                                 exit(EXIT_FAILURE);
                             }
 
-                            /* Read the remaining data */
-                            while (recv(con_socket, buffer, BUFFER_SIZE, 0) > 0);                                                  
+                            /* Read the remaining data from socket */
+                            while (recv(con_socket, buffer, BUFFER_SIZE, 0) > 0);
 
                             break;
                         }                      
@@ -428,7 +428,7 @@ int main (int argc, char *argv[])
                                 exit(EXIT_FAILURE);
                             }
 
-                            /* Read the remaining data */
+                            /* Read the remaining data from socket */
                             while (recv(con_socket, buffer, BUFFER_SIZE, 0) > 0);
                             				
                             break;
@@ -447,7 +447,7 @@ int main (int argc, char *argv[])
                                     exit(EXIT_FAILURE);
                                 }
 
-                                /* Read the remaining data */
+                                /* Read the remaining data from socket */
                                 while (recv(con_socket, buffer, BUFFER_SIZE, 0) > 0);
 
                                 break;
@@ -473,7 +473,7 @@ int main (int argc, char *argv[])
             }
 
             close(con_socket);           
-        }        
+        }      
     }
     
     return EXIT_SUCCESS;
