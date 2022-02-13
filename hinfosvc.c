@@ -23,8 +23,8 @@
 #define ARGS_CNT 2
 #define ARG_IDX 1
 #define BUFFER_SIZE 1024
-#define HOST_CPU_END_IDX 13
-#define LOAD_END_IDX 9
+#define HOST_CPU_END_IDX 14
+#define LOAD_END_IDX 10
 #define CPU_NAME_SIZE 128
 #define SLEEP_TIME 1
 #define PROC_LINE_LENGTH 4096
@@ -234,7 +234,6 @@ int hostname_response (char *response, int con_socket)
     /* Set HTTP response */
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(hostname), CONTENT_TYPE, hostname);               
     send(con_socket, response, strlen(response), 0);    
-    close(con_socket);
 
     return EXIT_SUCCESS;
 }
@@ -259,7 +258,6 @@ int cpu_name_response (char *response, int con_socket)
     /* Set HTTP response */
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(cpu_name), CONTENT_TYPE, cpu_name);
     send(con_socket, response, strlen(response), 0);    
-    close(con_socket);
 
     return EXIT_SUCCESS;
 }
@@ -290,7 +288,6 @@ int load_response (char *response, int con_socket)
     /* Set HTTP response */
     sprintf(response,"%s%s%ld\r\n%s%s", VALID_RES_STATUS, CONTENT_LENGTH, strlen(cpu_str), CONTENT_TYPE, cpu_str);    
     send(con_socket, response, strlen(response), 0);    
-    close(con_socket);
 
     return EXIT_SUCCESS;
 }
@@ -377,7 +374,7 @@ int main (int argc, char *argv[])
         con_socket = accept(welcome_socket, (struct sockaddr*) &client_addr, &client_addr_len);
 
         if (con_socket > 0)
-        {            
+        {        
             /* Set to non-blocking mode */
             flags = fcntl(con_socket, F_GETFL, 0);
 
@@ -401,32 +398,38 @@ int main (int argc, char *argv[])
                 
                 if (FD_ISSET(con_socket, &fds))
                 {
-                    int res = recv(con_socket, buffer, BUFFER_SIZE, 0);		
-                    
+                    int res = recv(con_socket, buffer, BUFFER_SIZE, 0);                    
+
                     if (res > 0)
-                    {                        
+                    {
                         /* Set end of string for following comparing */
                         buffer[HOST_CPU_END_IDX] = '\0';
                         
                         /**************** HOSTNAME *****************/
-                        if (strcmp(buffer, "GET /hostname") == 0)
+                        if (strcmp(buffer, "GET /hostname ") == 0)
                         {
                             if (hostname_response(response, con_socket) != EXIT_SUCCESS)
                             {
                                 perror("HOSTNAME ERROR");
                                 exit(EXIT_FAILURE);
                             }
-                               						
+
+                            /* Read the remaining data */
+                            while (recv(con_socket, buffer, BUFFER_SIZE, 0) > 0);                                                  
+
                             break;
-                        }                        
+                        }                      
                         /**************** CPU NAME *****************/
-                        else if (strcmp(buffer, "GET /cpu-name") == 0)
+                        else if (strcmp(buffer, "GET /cpu-name ") == 0)
                         {
                             if (cpu_name_response(response, con_socket) != EXIT_SUCCESS)
                             {
                                 perror("HOSTNAME ERROR");
                                 exit(EXIT_FAILURE);
                             }
+
+                            /* Read the remaining data */
+                            while (recv(con_socket, buffer, BUFFER_SIZE, 0) > 0);
                             				
                             break;
                         }
@@ -436,34 +439,41 @@ int main (int argc, char *argv[])
                             buffer[LOAD_END_IDX] = '\0';
                             
                             /****************** LOAD *******************/
-                            if (strcmp(buffer, "GET /load") == 0)
+                            if (strcmp(buffer, "GET /load ") == 0)
                             {
                                 if (load_response(response, con_socket) != EXIT_SUCCESS)
                                 {
                                     perror("CPU USAGE ERROR");
-                                    exit(EXIT_FAILURE); 
+                                    exit(EXIT_FAILURE);
                                 }
-                                			
-                                break;                                                                                           
+
+                                /* Read the remaining data */
+                                while (recv(con_socket, buffer, BUFFER_SIZE, 0) > 0);
+
+                                break;
                             }
                             else
                             {
                                 /* Set HTTP msg */
-                                strcpy(response, BAD_RES_STATUS);
+                                strcpy(response, BAD_RES_STATUS);                                
                                 send(con_socket, response, strlen(response), 0);
-                                close(con_socket);						
-                                break;                        
+
+                                /* Read the remaining data */
+                                while (recv(con_socket, buffer, BUFFER_SIZE, 0) > 0);
+
+                                break;
                             }                           
                         }
                     }
-                    else if (res == 0)
-                    {                        
-                        close(con_socket);					
-                        break;      
-                    }
-                }                
-            }           
-        }            
+                    else if (res <= 0)
+                    {
+                        break;
+                    } 
+                }
+            }
+
+            close(con_socket);           
+        }        
     }
     
     return EXIT_SUCCESS;
