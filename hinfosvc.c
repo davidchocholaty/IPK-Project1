@@ -43,7 +43,6 @@
  * @param cpu_name Buffer for cpu name
  * @param size     Size of cpu_name buffer
  * @return         Status of function processing
- * 
  */
 int set_cpu_name (char *cpu_name, int size)
 {
@@ -61,8 +60,7 @@ int set_cpu_name (char *cpu_name, int size)
     else
     {
         /*
-         * Delete new line character at the end of cpu name
-         *         
+         * Delete new line character at the end of cpu name     
          */
         char *new_line = strchr(cpu_name, '\n');
 
@@ -133,7 +131,6 @@ int calculate_usage (FILE* ptr_stream,
  * @param act_total  Variable for actual total value
  * @param act_idle   Variable for actual idle value
  * @return           Status of function processing
- * 
  */
 int set_measurement_vals (unsigned long long int *prev_total,
                           unsigned long long int *prev_idle,
@@ -174,7 +171,6 @@ int set_measurement_vals (unsigned long long int *prev_total,
  * CPU usage calculation function
  * @param result Variable for result CPU usage
  * @return       Status of function processing
- * 
  */
 int set_cpu_usage (unsigned int *result)
 {
@@ -207,7 +203,6 @@ int set_cpu_usage (unsigned int *result)
  * @param cpu_str   Buffer for CPU usage string
  * @param cpu_usage Value of CPU usage
  * @return          Status of function processing
- *  
  */
 int cpu_usg_2_str(char *cpu_str, unsigned int cpu_usage)
 {
@@ -302,7 +297,6 @@ int load_response (char *response, int con_socket)
 
 /*
  * Main function of server
- *
  */
 int main (int argc, char *argv[])
 {
