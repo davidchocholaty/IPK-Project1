@@ -82,6 +82,16 @@ Program *wget*
 wget http://localhost:12345/load
 ```
 ## Ukázkový příklad - program curl
+### Vytvoření projektu
+```console
+make
+```
+
+### Spuštění serveru
+```console
+./hinfosvc 12345 &
+```
+
 ### Získání doménového jména
 ```console
 curl http://localhost:12345/hostname
