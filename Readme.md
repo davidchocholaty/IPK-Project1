@@ -27,6 +27,9 @@ Server je spuštěn s argumentem, který určuje port, na kterém server bude na
 ./hinfosvc 12345
 ```
 
+### Ukončení serveru
+Server lze ukončit pomocí kombinace kláves Ctrl+C
+
 ### Získání systémových informací
 Systémové informace lze získat prostřednictvím webového rozhraní, příkazu GET, pomocí programu *curl* a nebo s využitím programu *wget*. Následující příklady obsahují výčet všech variant použití.
 	
@@ -96,9 +99,6 @@ make
 ```console
 ./hinfosvc 12345 &
 ```
-
-#### Ukončení serveru
-Server lze ukončit pomocí kombinace kláves Ctrl+C
 
 #### Získání doménového jména
 ```console
