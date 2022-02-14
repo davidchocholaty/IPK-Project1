@@ -12,7 +12,10 @@ David Chocholatý (xchoch09@stud.fit.vutbr.cz)
 ## Návod použití
 
 ### Vytvoření projektu
-TODO
+Projekt lze vytvoři pomocí Makefile následujícím příkazem
+```console
+make
+```
 
 ### Spuštění serveru
 Server je spuštěn s argumentem, který určuje port, na kterém server bude naslouchat. Následující příklad obsahuje spuštění serveru s portem 12345.
@@ -78,5 +81,23 @@ Program *wget*
 ```console
 wget http://localhost:12345/load
 ```
-## Ukázkový příklad
-TODO
+## Ukázkový příklad - program curl
+### Získání doménového jména
+```console
+curl http://localhost:12345/hostname
+```
+
+merlin.fit.vutbr.cz
+
+### Získání informací o CPU
+```console
+curl http://localhost:12345/cpu-name
+```
+
+Intel(R) Xeon(R) Silver 4214R CPU @ 2.40GHz
+
+### Aktuální zátěž
+```console
+curl http://localhost:12345/load
+```
+4%
