@@ -6,6 +6,9 @@ Implementace serveru komunikujícího prostřednictvím protokolu HTTP poskytuj�
 - Informace o CPU
 - Aktuální zátěž
 
+## Autor
+David Chocholatý (xchoch09@stud.fit.vutbr.cz)
+
 ## Návod použití
 
 ### Vytvoření projektu
