@@ -8,6 +8,9 @@ Implementace serveru komunikujícího prostřednictvím protokolu HTTP poskytuj�
 
 ## Návod použití
 
+### Vytvoření projektu
+TODO
+
 ### Spuštění serveru
 Server je spuštěn s argumentem, který určuje port, na kterém server bude naslouchat. Následující příklad obsahuje spuštění serveru s portem 12345.
 ```console
@@ -72,4 +75,5 @@ Program *wget*
 ```console
 wget http://localhost:12345/load
 ```
-
+## Ukázkový příklad
+TODO
