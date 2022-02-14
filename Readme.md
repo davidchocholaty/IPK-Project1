@@ -31,10 +31,10 @@ Server je spuštěn s argumentem, který určuje port, na kterém server bude na
 Server lze ukončit pomocí kombinace kláves Ctrl+C
 
 ### Získání systémových informací
-Systémové informace lze získat prostřednictvím webového rozhraní, příkazu GET, pomocí programu *curl* a nebo s využitím programu *wget*. Následující příklady obsahují výčet všech variant použití.
+Systémové informace lze získat prostřednictvím webového rozhraní, příkazu GET, pomocí programu *curl* nebo s využitím programu *wget*. Následující příklady obsahují výčet všech variant použití.
 	
 #### Získání doménového jména
-	
+
 Webové rozhraní
 ```console
 http://localhost:12345/hostname
