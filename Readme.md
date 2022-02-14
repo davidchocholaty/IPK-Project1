@@ -11,6 +11,10 @@ David Chocholatý (xchoch09@stud.fit.vutbr.cz)
 
 ## Návod použití
 
+### Předpoklady
+* gcc
+* zip (Nutné pouze při vytváření archivu)
+
 ### Vytvoření projektu
 Projekt lze vytvoři pomocí Makefile následujícím příkazem
 ```console
@@ -82,31 +86,35 @@ Program *wget*
 wget http://localhost:12345/load
 ```
 ## Ukázkový příklad - program curl
-### Vytvoření projektu
+
+#### Vytvoření projektu
 ```console
 make
 ```
 
-### Spuštění serveru
+#### Spuštění serveru
 ```console
 ./hinfosvc 12345 &
 ```
 
-### Získání doménového jména
+#### Ukončení serveru
+Server lze ukončit pomocí kombinace kláves Ctrl+C
+
+#### Získání doménového jména
 ```console
 curl http://localhost:12345/hostname
 ```
 
 merlin.fit.vutbr.cz
 
-### Získání informací o CPU
+#### Získání informací o CPU
 ```console
 curl http://localhost:12345/cpu-name
 ```
 
 Intel(R) Xeon(R) Silver 4214R CPU @ 2.40GHz
 
-### Aktuální zátěž
+#### Aktuální zátěž
 ```console
 curl http://localhost:12345/load
 ```
