@@ -33,7 +33,8 @@
 #define CPU_USAGE_CMND "grep \"cpu\" /proc/stat | head -n 1 | awk '{ print substr($0, index($0,$2)) }'"
 
 #define VALID_RES_STATUS "HTTP/1.1 200 OK\r\n"
-#define BAD_RES_STATUS "400 Bad Request"
+#define BAD_RES_STATUS "HTTP/1.1 400 Bad Request\r\n"
+#define NOT_FOUND_RES_STATUS "HTTP/1.1 400 Not Found\r\n"
 #define CONTENT_LENGTH "Content-Length: "
 #define CONTENT_TYPE "Content-Type: text/plain\r\n\r\n"
 
@@ -455,7 +456,7 @@ int main (int argc, char *argv[])
                             else
                             {
                                 /* Set HTTP msg */
-                                strcpy(response, BAD_RES_STATUS);                                
+                                sprintf(response,"%s%s", BAD_RES_STATUS, CONTENT_TYPE);
                                 send(con_socket, response, strlen(response), 0);
 
                                 /* Read the remaining data */
@@ -467,6 +468,8 @@ int main (int argc, char *argv[])
                     }
                     else if (res <= 0)
                     {
+                        sprintf(response,"%s%s", NOT_FOUND_RES_STATUS, CONTENT_TYPE);
+                        send(con_socket, response, strlen(response), 0);
                         break;
                     } 
                 }
